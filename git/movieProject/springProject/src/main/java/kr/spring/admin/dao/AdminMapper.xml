@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.admin.dao.AdminMapper">
+	<select id="adminSelectList" parameterType="map" resultType="MemberVO">
+		Select 
+		   *
+		FROM (SELECT a.*, rownum rnum 
+					FROM
+			 (SELECT * FROM m_member m LEFT OUTER JOIN m_member_detail d ON m.mem_num = d.mem_num 
+			 			<where>
+			  			<if test="keyword !='' and keyfield==1">
+			  				m.id LIKE '%' || #{keyword} || '%'
+			  				OR
+			  				d.mem_name LIKE '%' || #{keyword} || '%'
+			  				AND
+			  				m.auth = 1
+			  			</if>
+			  			<if test="keyword != '' and keyfield == 2">
+			  				m.id LIKE '%' || #{keyword} || '%'
+			  				OR
+			  				d.mem_name LIKE '%' || #{keyword} || '%'
+			  				AND
+			  				m.auth = 2
+			  			</if>
+			  			<if test="keyword != '' and keyfield == 3" >
+			  				m.id LIKE '%' || #{keyword} || '%'
+			  				OR
+			  				d.mem_name LIKE '%' || #{keyword} || '%'
+			  				AND
+			  				m.auth = 3
+			  			</if>
+			  			<if test="keyword =='' and keyfield ==1">
+							m.auth = 1		  			
+			  			</if>
+			  			<if test="keyword =='' and keyfield ==2">
+			  				m.auth = 2
+			  			</if>
+			  			<if test="keyword =='' and keyfield ==3">
+			  				m.auth = 3
+			  			</if>
+			  		</where>
+			 		ORDER BY m.auth)a)  
+        <![CDATA[
+ 		where rnum >= #{start} AND rnum <= #{end}   
+		]]>					
+	</select>
+	
+	<select id="selectAdminReserveMovieListCount" parameterType="map" resultType="integer" >
+		SELECT 
+		   count(*) 
+		FROM (SELECT * FROM 
+			 (SELECT * FROM M_reserve r LEFT OUTER JOIN M_movie m ON r.movie_num = m.movie_num
+        								LEFT OUTER JOIN m_time t ON r.time_num = t.time_num
+                                        LEFT OUTER JOIN m_reservseat s on s.time_num = t.time_num 
+        								LEFT OUTER JOIN m_theater th ON t.theater_num = th.theater_num   
+        <![CDATA[
+					 WHERE 
+					 movie_Date >= #{movieDate})) 
+		
+		]]>	
+		
+	</select>
+	
+	<select id="selectAdminReserveMovieList" parameterType="map" resultType="ReserveVO">
+		SELECT 
+		   * 
+		FROM (SELECT a.*, rownum rnum FROM 
+			 (SELECT * FROM M_reserve r LEFT OUTER JOIN M_movie m ON r.movie_num = m.movie_num
+        								LEFT OUTER JOIN m_time t ON r.time_num = t.time_num
+                                        LEFT OUTER JOIN m_reservseat s on s.time_num = t.time_num 
+        								LEFT OUTER JOIN m_theater th ON t.theater_num = th.theater_num 
+        								ORDER BY r.movie_num DESC 
+        <![CDATA[
+					 WHERE 
+					 movie_Date >= #{movieDate}
+		]]>
+						<if test="keyword !='' and keyfield==1">
+							AND
+			  				t.movie_date LIKE '%' || #{keyword} || '%'
+			  			</if>
+			  			<if test="keyword != '' and keyfield == 2">
+			  				AND
+			  				m.movie_name LIKE '%' || #{keyword} || '%'
+			  			</if>
+			  			<if test="keyword != '' and keyfield == 3" >
+			  				AND
+			  				th.theater_name LIKE '%' || #{keyword} || '%'
+			  			</if>
+			  			<if test="keyword =='' and keyfield ==1">
+							ORDER BY t.movie_date DESC  			
+			  			</if>
+			  			<if test="keyword =='' and keyfield ==2">
+			  				ORDER BY m.movie_num DESC
+			  			</if>
+			  			<if test="keyword =='' and keyfield ==3">
+			  				ORDER BY th.theater_name ASC
+			  			</if>
+					 	)a)
+		 <![CDATA[			 	 
+ 		where rnum >= #{start} AND rnum <= #{end}   
+		]]>					
+		
+	</select>
+	
+	
+	
+</mapper>

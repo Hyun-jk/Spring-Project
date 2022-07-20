@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.time.dao.TimeMapper"> 
+	<!-- 목록 명시 -->
+	<!-- 어노테이션을 이용할 경우 id는 TimeMapper.java에서 명시한 "인터페이스 메서드명"이 됨 -->
+	<!-- <select id="selectList" resultType="timeVO" parameterType="map">
+		SELECT * FROM
+		(SELECT a.*, rownum rnum FROM
+		(SELECT * FROM M_time ORDER BY reg_date DESC)a)
+	<![CDATA[
+	WHERE rnum >= #{start} AND rnum <= #{end}
+	]]>
+	</select> -->
+</mapper>
+
+
+
+
+
+
+

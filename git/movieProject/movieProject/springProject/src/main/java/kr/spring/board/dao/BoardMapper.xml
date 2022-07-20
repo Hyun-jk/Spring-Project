@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.board.dao.BoardMapper"> 
+
+<insert id="adminInsertBoard" parameterType="BoardVO" >
+	INSERT INTO M_board (board_num,board_auth,cate_num,theater_choise,sel_regioncode,sel_theatercode,board_title,board_content,board_uploadfile,
+		board_filename,mem_num) VALUES (M_board_seq.nextval,#{board_auth},#{cate_num},#{theater_choise},#{sel_regioncode},#{sel_theatercode},
+		#{board_title},#{board_content},#{board_uploadfile},#{board_filename},#{mem_num})
+</insert>
+
+<insert id="insertBoard" parameterType="BoardVO" >
+	INSERT INTO M_board (board_num,board_auth,cate_num,sel_regioncode,sel_theatercode,board_title,board_content,board_uploadfile,
+			  board_filename,mem_num) VALUES (M_board_seq.nextval,#{board_auth},#{cate_num},#{sel_regioncode},#{sel_theatercode},
+			  #{board_title},#{board_content},#{board_uploadfile},#{board_filename},#{mem_num})
+</insert>
+
+
+<select id="selectRowCount" parameterType="map" resultType="integer">
+		SELECT
+		  COUNT(*)
+		FROM m_board b
+		JOIN m_member m
+		ON b.mem_num = m.mem_num
+		 <where>
+		 	<if test="keyword != '' and keyfield == 1">
+		 		b.board_title LIKE '%' || #{keyword} || '%' or
+		        b.board_content LIKE '%' || #{keyword} || '%'
+		    </if>
+		    <if test="keyword != '' and keyfield == 2">
+		 		b.board_title LIKE '%' || #{keyword} || '%'
+		    </if>
+		    <if test="keyword != '' and keyfield == 3">
+		 		b.board_content LIKE '%' || #{keyword} || '%'
+		    </if>
+		 </where>
+	</select>
+
+<select id="selectBoard" parameterType="Integer" resultType="boardVO">
+SELECT * FROM m_board b JOIN m_member m 
+			 ON b.mem_num=m.mem_num LEFT JOIN m_category c on b.cate_num=c.cate_num
+			 WHERE b.board_num=#{board_num}
+</select>
+
+<select id="selectListBy5" parameterType="map" resultType="BoardVO">
+	SELECT
+		  *
+		FROM (SELECT 
+		       a.*,
+		       rownum rnum
+		      FROM (SELECT 
+		               b.board_num,
+		               <![CDATA[
+		               REPLACE(REPLACE(b.board_title,'<','&lt;'),'>','&gt;') board_title,
+		               ]]>
+		               b.board_hit,
+		               b.board_reg_date,
+		               m.cate_name,
+		               m.cate_num
+		            FROM m_board b
+		            JOIN m_category m 
+		            ON b.cate_num = m.cate_num
+		            <where>
+		            	<if test="keyword != '' and keyfield == 1">
+		            		b.board_title LIKE '%' || #{keyword} || '%' or
+		            		b.board_content LIKE '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword != '' and keyfield == 2">
+		            		b.board_title LIKE '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword != '' and keyfield == 3">
+		            		b.board_content LIKE '%' || #{keyword} || '%'
+		            	</if>
+		            </where>
+		            ORDER BY b.board_num DESC)a)
+	   <![CDATA[
+	   WHERE rnum >= #{start} AND rnum <= #{end}
+	   AND ROWNUM < 6
+	   AND cate_num between '5' and '7' 
+	   ]]>	       
+</select>
+
+<select id="userSelectList" parameterType="map" resultType="BoardVO">
+	SELECT
+		  *
+		FROM (SELECT 
+		       a.*,
+		       rownum rnum
+		      FROM (SELECT 
+		               b.board_num,
+		               b.mem_num,
+		               <![CDATA[
+		               REPLACE(REPLACE(b.board_title,'<','&lt;'),'>','&gt;') board_title,
+		               ]]>
+		               b.board_hit,
+		               b.board_reg_date,
+		               m.cate_name,
+		               m.cate_num
+		            FROM m_board b
+		            JOIN m_category m 
+		            ON b.cate_num = m.cate_num
+		            <where>
+		            	<if test="keyword != '' and keyfield == 1">
+		            		b.board_title LIKE '%' || #{keyword} || '%' or
+		            		b.board_content LIKE '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword != '' and keyfield == 2">
+		            		b.board_title LIKE '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword != '' and keyfield == 3">
+		            		b.board_content LIKE '%' || #{keyword} || '%'
+		            	</if>
+		            </where>
+		            ORDER BY b.board_num DESC)a)
+	   <![CDATA[
+	   WHERE rnum >= #{start} AND rnum <= #{end}
+	   AND mem_num = #{mem_num}
+	   ]]>	       
+</select>
+
+<select id="selectList" parameterType="map" resultType="BoardVO">
+		SELECT
+		  *
+		FROM (SELECT 
+		       a.*,
+		       rownum rnum
+		      FROM (SELECT 
+		               b.board_num,
+		               <![CDATA[
+		               REPLACE(REPLACE(b.board_title,'<','&lt;'),'>','&gt;') board_title,
+		               ]]>
+		               b.board_hit,
+		               b.board_reg_date,
+		               m.cate_name,
+		               m.cate_num
+		            FROM m_board b
+		            JOIN m_category m 
+		            ON b.cate_num = m.cate_num
+		            <where>
+		            	<if test="keyword != '' and keyfield == 1">
+		            		b.board_title LIKE '%' || #{keyword} || '%' or
+		            		b.board_content LIKE '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword != '' and keyfield == 2">
+		            		b.board_title LIKE '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword != '' and keyfield == 3">
+		            		b.board_content LIKE '%' || #{keyword} || '%'
+		            	</if>
+		            </where>
+		            ORDER BY b.board_num DESC)a)
+	   
+	   WHERE rnum <![CDATA[ >=  ]]>	#{start} AND rnum <![CDATA[ <=  ]]> #{end}
+	   <if test="cate_num == 0">
+	   AND cate_num IN (1,2,3,4)
+	   </if>
+	   <if test="cate_num == 1">
+	   AND cate_num IN (1)
+	   </if>
+	   <if test="cate_num == 2">
+	   AND cate_num IN (2)
+	   </if>
+	   <if test="cate_num == 3">
+	   AND cate_num IN (3)
+	   </if>
+	   <if test="cate_num == 4">
+	   AND cate_num IN (1)
+	   </if>
+	   <if test="cate_num == 20">
+	   AND cate_num IN (5,6,7)
+	   </if> 
+	   <if test="cate_num == 5">
+	   AND cate_num IN (5)
+	   </if> 
+	   <if test="cate_num == 6">
+	   AND cate_num IN (6)
+	   </if> 
+	   <if test="cate_num == 7">
+	   AND cate_num IN (7)
+	   </if> 
+	   <if test="cate_num == 21">
+	   AND cate_num IN (8,9,10,11)
+	   </if> 
+	   <if test="cate_num == 8">
+	   AND cate_num IN (8)
+	   </if> 
+	   <if test="cate_num == 9">
+	   AND cate_num IN (9)
+	   </if> 
+	   <if test="cate_num == 10">
+	   AND cate_num IN (10)
+	   </if> 
+	   <if test="cate_num == 11">
+	   AND cate_num IN (11)
+	   </if> 
+	</select>
+
+	<select id="adminSelectBoard" parameterType="Integer" resultType="boardVO">
+	SELECT * FROM m_board b JOIN m_member m 
+		  ON b.mem_num=m.mem_num LEFT JOIN m_category c on b.cate_num=c.cate_num
+		  WHERE b.board_num=#{board_num}
+	</select>
+
+	<select id="compareMemNumByBrdNum" parameterType="map" resultType="Integer">
+		SELECT 
+			mem_num
+		FROM
+			M_BOARD
+		WHERE 
+			board_num = #{board_num}
+	</select>
+
+
+	<update id="updateHit" parameterType="Integer">
+	UPDATE m_board SET board_hit=board_hit+1 WHERE board_num=#{board_num}
+	</update>
+
+	<update id="adminUpdateBoard" parameterType="BoardVO">
+		UPDATE m_board SET
+		  
+		  board_auth=#{board_auth},
+		  cate_num=#{cate_num},
+		  theater_choise=#{theater_choise},
+		  sel_regioncode=#{sel_regioncode},
+		  sel_theatercode=#{sel_theatercode},
+		  board_title=#{board_title},
+		  board_content=#{board_content}
+	   WHERE board_num=#{board_num}
+	</update>
+
+	<update id="updateBoard" parameterType="BoardVO">
+		UPDATE m_board SET
+		  
+		  board_auth=#{board_auth},
+		  cate_num=#{cate_num},
+		  theater_choise=#{theater_choise},
+		  sel_regioncode=#{sel_regioncode},
+		  sel_theatercode=#{sel_theatercode},
+		  board_title=#{board_title},
+		  board_content=#{board_content}
+	   WHERE board_num=#{board_num}
+	</update>
+
+	<delete id="adminDeleteBoard" parameterType="Integer">
+	DELETE FROM m_board WHERE board_num=#{board_num}
+	</delete>
+
+	<insert id="insertReply" parameterType="BoardReplyVO" >
+	INSERT INTO m_reply (reply_num,re_content,
+			board_num,mem_num) VALUES (m_reply_seq.nextval,
+			#{re_content},#{board_num},#{mem_num})
+	</insert>
+	<select id="selectListReply" parameterType="map" resultType="BoardReplyVO">
+		SELECT
+		  *
+		FROM (SELECT
+		        a.*,
+		        rownum rnum
+		      FROM  (SELECT
+		               reply_num,
+		               <![CDATA[
+		               REPLACE(REPLACE(re_content,'<','&lt;'),'>','&gt;') re_content,
+		               ]]>
+		               re_date,
+		               board_num,
+		               mem_num,
+		               id
+		             FROM m_reply
+		             JOIN m_member USING(mem_num)
+		             WHERE board_num = #{board_num}
+		             ORDER BY reply_num DESC)a)
+		 <![CDATA[
+		 WHERE rnum >= #{start} AND rnum <= #{end}
+		 ]]>
+	</select>
+	<select id="selectRowCountReply" parameterType="map" resultType="Integer">
+		SELECT 
+		COUNT(*) 
+		FROM m_reply b 
+		JOIN m_member m 
+		ON b.mem_num=m.mem_num 
+		WHERE b.board_num=#{board_num}
+	</select>
+	<update id="updateReply" parameterType="BoardReplyVO" >
+	UPDATE m_reply SET re_content=#{re_content} WHERE reply_num=#{reply_num}
+	</update>
+	<select id="selectReply" parameterType="Integer" resultType="BoardReplyVO">
+	SELECT * FROM m_reply WHERE reply_num=#{reply_num}
+	</select>
+	
+	<select id="selectRowCountByBoardNum" parameterType="Integer" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM m_reply mr
+		WHERE mr.board_num = #{board_num}
+	</select>
+	<delete id="deleteReply" parameterType="Integer">
+	DELETE FROM m_reply WHERE reply_num=#{reply_num}
+	</delete>
+	<delete id="deleteReplyByBoardNum" parameterType="Integer">
+	DELETE FROM m_reply WHERE board_num=#{board_num}
+	</delete>
+	
+	<select id="selectAdminMember" resultType="MemberVO">
+		SELECT
+			*
+		FROM
+			m_member m
+		WHERE m.auth = 3
+	</select>
+	
+</mapper>

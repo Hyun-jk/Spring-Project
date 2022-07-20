@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.member.dao.MemberMapper">
+	<insert id="insertMember_detail" parameterType="MemberVO" >
+		Insert
+		 INTO
+		 M_member_detail
+		 (mem_num,mem_name,mem_pw,mem_birth,mem_phone,mem_address,mem_zipcode,mem_email)
+		 VALUES
+		 (#{mem_num},#{mem_name},#{mem_pw},#{mem_birth},#{mem_phone},#{mem_address},#{mem_zipcode},#{mem_email})
+	</insert> 
+	
+</mapper>
+
+
+
+
+
+
+

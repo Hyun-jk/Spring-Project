@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.movie.dao.MovieMapper"> 
+
+	<select id="selectList" parameterType="map" resultType="movieVO">
+	SELECT
+		  *
+		FROM (SELECT 
+		       a.*,
+		       rownum rnum
+		      FROM (SELECT 
+		              m.movie_num, 
+		              <![CDATA[
+		               REPLACE(REPLACE(m.movie_name,'<','&lt;'),'>','&gt;') movie_name,
+		              ]]>
+		              m.movie_pg,
+		              m.movie_auth,
+		              m.movie_genre
+		            FROM M_movie m
+		            ORDER BY m.movie_num DESC)a)
+
+	   <![CDATA[
+	   WHERE rnum >= #{start} AND rnum <= #{end}
+	   ]]>	
+	</select>
+	<select id="selectRowCount" parameterType="map" resultType="integer">
+		SELECT
+		  COUNT(*)
+		FROM M_movie
+	</select>
+	<update id="updateMovie" parameterType="movieVO">
+		UPDATE M_movie SET
+			 movie_name=#{movie_name},
+			 movie_content=#{movie_content},
+			 movie_genre=#{movie_genre},
+			 movie_auth=#{movie_auth},
+			 movie_pg=#{movie_pg},
+			 movie_showtm=#{movie_showtm},
+			  <if test="filename != ''">
+		  	uploadfile=#{uploadfile},
+		  	filename=#{filename}
+		  </if>
+		WHERE movie_num=#{movie_num}
+	</update>
+	<select id="selectListReview" parameterType="map"
+                         resultType="movieReviewVO">
+       SELECT
+          *
+       FROM M_review         
+    </select>
+    <select id="selectMovie" parameterType="map" resultType="movieVO">
+		SELECT
+			  A.*
+			, NVL( (SELECT COUNT(*) AS CNT FROM MY_MOVIE WHERE movie_num = #{movie_num}) , 0) AS likeCnt
+			, NVL(B.my_movie_num, 0) as my_movie_num
+		FROM M_movie A
+		LEFT OUTER JOIN (SELECT m.movie_num, m.my_movie_num 
+		                         FROM MY_MOVIE M
+		                         WHERE m.mem_num = #{mem_num}
+		                         AND m.movie_num = #{movie_num}
+		                    ) B 
+		                   ON A.MOVIE_NUM = B.MOVIE_NUM 		
+		WHERE A.MOVIE_NUM = #{movie_num}
+    </select>
+    
+     <select id="searchMovieCount" parameterType="map" resultType="Integer">
+		SELECT 
+		   count(*) 
+		FROM M_movie 
+		   WHERE movie_name LIKE '%' || #{keyword} || '%'
+    </select>
+    
+     <select id="searchMovieList" parameterType="map" resultType="movieVO">
+		SELECT 
+		   * 
+		FROM (SELECT a.*, rownum rnum FROM 
+			 	(SELECT * FROM M_movie WHERE movie_name LIKE '%' || #{keyword} || '%')a)
+		<![CDATA[			 	 
+ 		where rnum >= #{start} AND rnum <= #{end}   
+		]]>	
+    </select>
+    
+    
+    
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

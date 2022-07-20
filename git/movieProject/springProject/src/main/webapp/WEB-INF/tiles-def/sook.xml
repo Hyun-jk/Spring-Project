@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="boardMain" extends="board_main">
+    	<put-attribute name="title" value="고객센터"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/boardMain.jsp"/>
+    </definition>
+    <definition name="adminBoardWrite" extends="board_main">
+    	<put-attribute name="title" value="관리자 게시글 작성"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/adminBoardWrite.jsp"/>
+    </definition>
+    <definition name="userBoardWrite" extends="board_main">
+    	<put-attribute name="title" value="회원 게시글 작성"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/userBoardWrite.jsp"/>
+    </definition>
+     <definition name="adminBoardList" extends="board_main">
+    	<put-attribute name="title" value="관리자 게시글 목록"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/adminBoardList.jsp"/>
+    </definition>
+    <definition name="qnaList" extends="board_main">
+    	<put-attribute name="title" value="자주찾는 질문"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/qnaList.jsp"/>
+    </definition>
+    <definition name="qnaBoardView" extends="board_main">
+    	<put-attribute name="title" value="자주찾는 질문 상세페이지"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/qnaBoardView.jsp"/>
+    </definition>
+	 <definition name="newsList" extends="board_main">
+    	<put-attribute name="title" value="공지/뉴스"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/newsList.jsp"/>
+    </definition>
+    <definition name="userQnaList" extends="board_main">
+    	<put-attribute name="title" value="문의/건의"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/userQnaList.jsp"/>
+    </definition>
+    <definition name="userQnaView" extends="board_main">
+    	<put-attribute name="title" value="문의/건의"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/userQnaView.jsp"/>
+    </definition>
+     <definition name="adminUpdate" extends="board_main">
+    	<put-attribute name="title" value="관리자 글 수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/adminUpdate.jsp"/>
+    </definition>
+     <definition name="userUpdate" extends="board_main">
+    	<put-attribute name="title" value="회원 글 수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/userUpdate.jsp"/>
+    </definition>
+     <definition name="myList" extends="board_main">
+    	<put-attribute name="title" value="내 상담내역"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/myList.jsp"/>
+    </definition>
+    
+</tiles-definitions>
+
+

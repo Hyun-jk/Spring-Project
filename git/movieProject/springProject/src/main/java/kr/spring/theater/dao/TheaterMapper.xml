@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.theater.dao.TheaterMapper"> 
+	<!-- 1. 목록 명시 : 극장 리스트 -->
+	<!-- 어노테이션을 이용할 경우 id는 MemberMapper.java에서 명시한 "인터페이스 메서드명"이 됨(동일한 메서드명id사용 필수) -->
+</mapper>
+
+
+
+
+
+
+

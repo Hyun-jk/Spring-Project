@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.member.dao.MemberMovieMapper">
+	<select id="selectMyWatchedMovieCount" parameterType="map" resultType="integer" >
+		SELECT 
+		   count(*) 
+		FROM (SELECT * FROM 
+			 (SELECT * FROM M_reserve r LEFT OUTER JOIN M_movie m ON r.movie_num = m.movie_num
+        								LEFT OUTER JOIN m_time t ON r.time_num = t.time_num
+                                        LEFT OUTER JOIN m_reservseat s on s.time_num = t.time_num 
+        								LEFT OUTER JOIN m_theater th ON t.theater_num = th.theater_num   
+        <![CDATA[
+					 WHERE 
+					 r.mem_num = #{mem_num}
+					 AND movie_Date < #{movieDate})) 
+		
+		]]>	
+		
+	</select>
+	<select id="selectMyWatchedMovie" parameterType="map" resultType="ReserveVO">
+		SELECT 
+		   * 
+		FROM (SELECT a.*, rownum rnum FROM 
+			 (SELECT * FROM M_reserve r LEFT OUTER JOIN M_movie m ON r.movie_num = m.movie_num
+        								LEFT OUTER JOIN m_time t ON r.time_num = t.time_num
+                                        LEFT OUTER JOIN m_reservseat s on s.time_num = t.time_num 
+        								LEFT OUTER JOIN m_theater th ON t.theater_num = th.theater_num  
+        <![CDATA[
+					 WHERE 
+					 r.mem_num = #{mem_num}
+					 AND movie_Date < #{movieDate})a) 
+ 		where rnum >= #{start} AND rnum <= #{end}   
+		
+		]]>					
+		
+	</select>
+	
+	<select id="selectMyReserveMovieCount" parameterType="map" resultType="integer" >
+		SELECT 
+		   count(*) 
+		FROM (SELECT * FROM 
+			 (SELECT * FROM M_reserve r LEFT OUTER JOIN M_movie m ON r.movie_num = m.movie_num
+        								LEFT OUTER JOIN m_time t ON r.time_num = t.time_num
+                                        LEFT OUTER JOIN m_reservseat s on s.time_num = t.time_num 
+        								LEFT OUTER JOIN m_theater th ON t.theater_num = th.theater_num   
+        <![CDATA[
+					 WHERE 
+					 r.mem_num = #{mem_num}
+					 AND movie_Date >= #{movieDate})) 
+		
+		]]>	
+		
+	</select>
+	<select id="selectMyReserveMovie" parameterType="map" resultType="ReserveVO">
+		SELECT 
+		   * 
+		FROM (SELECT a.*, rownum rnum FROM 
+			 (SELECT * FROM M_reserve r LEFT OUTER JOIN M_movie m ON r.movie_num = m.movie_num
+        								LEFT OUTER JOIN m_time t ON r.time_num = t.time_num
+                                        LEFT OUTER JOIN m_reservseat s on s.time_num = t.time_num 
+        								LEFT OUTER JOIN m_theater th ON t.theater_num = th.theater_num  
+        <![CDATA[
+					 WHERE 
+					 r.mem_num = #{mem_num}
+					 AND movie_Date >= #{movieDate})a) 
+ 		where rnum >= #{start} AND rnum <= #{end}   
+		
+		]]>					
+		
+	</select>
+	
+	<select id="selectMyInterestedMovie" parameterType="map" resultType="MovieVO">
+		SELECT 
+		   *
+		FROM (SELECT
+				a.*,
+				rownum rnum
+			  FROM (SELECT
+			  		  *
+			  		 FROM My_movie my JOIN M_movie m
+			  		 	  ON my.movie_num = m.movie_num WHERE mem_num=#{mem_num})a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>	  		 	  
+		
+	</select>
+	
+	<select id="selectMyReviewList" parameterType="map" resultType="MovieReviewVO">
+		SELECT 
+		   *
+		FROM (SELECT
+				a.*,
+				rownum rnum
+			  FROM (SELECT
+			  		  *
+			  		 FROM M_review r JOIN M_movie m ON r.movie_num = m.movie_num WHERE mem_num=#{mem_num})a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>	  		 	  
+		
+	</select>
+	 
+</mapper>
+
+
+
+
+
+
+

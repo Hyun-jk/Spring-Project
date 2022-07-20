@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="board_main" template="/WEB-INF/views/template/layout_board.jsp">
+    	<put-attribute name="title" value="고객센터 메인"/>
+    	<put-attribute name="header" value="/WEB-INF/views/template/header.jsp"/>
+    	<put-attribute name="menu" value="/WEB-INF/views/template/menu.jsp"/>
+    	<put-attribute name="left" value="/WEB-INF/views/template/left_board.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/boardMain.jsp"/>
+    	<put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp"/>
+    </definition>
+</tiles-definitions>
+
+

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="memberRegister" extends="main">
+    	<put-attribute name="title" value="회원가입"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/memberRegister.jsp"/>
+    </definition>
+    <definition name="memberLogin" extends="main">
+    	<put-attribute name="title" value="로그인"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/memberLogin.jsp"/>
+    </definition>
+    <definition name="myPageView" extends="board_main">
+    	<put-attribute name="title" value="마이페이지"/>
+    	<put-attribute name="left" value="/WEB-INF/views/template/myPageSide.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/myPageView.jsp"/>
+    </definition>
+    <definition name="userModifyView" extends="board_main">
+    	<put-attribute name="title" value="개인정보수정"/>
+    	<put-attribute name="left" value="/WEB-INF/views/template/myPageSide.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/userModifyView.jsp"/>
+    </definition>
+    <definition name="userModifyForm" extends="board_main">
+    	<put-attribute name="title" value="개인정보수정폼"/>
+    	<put-attribute name="left" value="/WEB-INF/views/template/myPageSide.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/userModifyForm.jsp"/>
+    </definition>
+    <definition name="userChangePassword" extends="main">
+    	<put-attribute name="title" value="비밀번호 변경"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/userChangePassword.jsp"/>
+    </definition>
+    <definition name="userDelete" extends="main">
+    	<put-attribute name="title" value="회원탈퇴"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/userDelete.jsp"/>
+    </definition>
+    <definition name="myWatchedMovie" extends="board_main">
+    	<put-attribute name="title" value="내가 본 영화"/>
+    	<put-attribute name="left" value="/WEB-INF/views/template/myMovieSide.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/myWatchedMovie.jsp"/>
+    </definition>
+     <definition name="myReserveMovie" extends="board_main">
+    	<put-attribute name="title" value="나의 예매 내역"/>
+    	<put-attribute name="left" value="/WEB-INF/views/template/myMovieSide.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/myReserveMovie.jsp"/>
+    </definition>
+    <definition name="myInterestedMovie" extends="board_main">
+    	<put-attribute name="title" value="나의 관심 영화"/>
+    	<put-attribute name="left" value="/WEB-INF/views/template/myMovieSide.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/myInterestedMovie.jsp"/>
+    </definition>
+     <definition name="writeReviewForm" extends="main">
+    	<put-attribute name="title" value="리뷰 쓰기"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/writeReviewForm.jsp"/>
+    </definition>
+    <definition name="myReview" extends="board_main">
+    	<put-attribute name="title" value="나의 리뷰"/>
+    	<put-attribute name="left" value="/WEB-INF/views/template/myMovieSide.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/myReview.jsp"/>
+    </definition>
+    <definition name="modifyReviewForm" extends="board_main">
+    	<put-attribute name="title" value="리뷰 수정하기"/>
+    	<put-attribute name="left" value="/WEB-INF/views/template/myMovieSide.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/user/modifyReviewForm.jsp"/>
+    </definition>
+    <definition name="adminPage" extends="board_main">
+    	<put-attribute name="title" value="관리자 페이지"/>
+    	<put-attribute name="left" value="/WEB-INF/views/template/adminPageSIde.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/admin/adminPage.jsp"/>
+    </definition>
+    <definition name="adminReserveListMovie" extends="board_main">
+    	<put-attribute name="title" value="관리자  예매페이지"/>
+    	<put-attribute name="left" value="/WEB-INF/views/template/adminPageSIde.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/admin/adminReserveListMovie.jsp"/>
+    </definition>
+    
+</tiles-definitions>
+
+

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="theaterWrite" extends="main">
+    	<put-attribute name="title" value="극장지역정보 등록"/>
+    	<put-attribute name="body" value="/WEB-INF/views/theater/theaterWrite.jsp"/>
+    </definition>
+    <definition name="theaterInsert2" extends="main">
+    	<put-attribute name="title" value="극장정보 등록"/>
+    	<put-attribute name="body" value="/WEB-INF/views/time/theaterInsert2.jsp"/>
+    </definition>
+    <definition name="selectList" extends="main">
+    	<put-attribute name="title" value="극장지역정보 목록"/>
+    	<put-attribute name="body" value="/WEB-INF/views/time/selectList.jsp"/>
+    </definition>
+    <definition name="insertSeat" extends="main">
+    	<put-attribute name="title" value="좌석 등록"/>
+    	<put-attribute name="body" value="/WEB-INF/views/time/insertSeat.jsp"/>
+    </definition>
+</tiles-definitions>
+
+
