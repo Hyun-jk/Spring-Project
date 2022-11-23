@@ -114,10 +114,12 @@
 ![Eclipse](https://img.shields.io/badge/Eclipse-2C2255.svg?style=for-the-badge&logo=Eclipse&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![Slack](https://img.shields.io/badge/slack-4A154B.svg?style=for-the-badge&logo=slack&logoColor=white) <br/>
 
 ### 배운점
+- Spring Framework & Spring MVC
+- 테이블 설계,ERD, UCD, 요구사항 정의서를 경험
+- 팀워크 및 문제 발생시 대처 능력
       
-      
-### 아쉬운점
-      
+### 아쉬운점 
+- 실제 서비스까지 진행되지 못한 아쉬움
 
     
 
